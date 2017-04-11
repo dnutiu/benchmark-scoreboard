@@ -1,14 +1,15 @@
+# scoreboard-benchmark 
+
 This is a simple web app used for an university projects.
 
 It should provide a simple score board display
 for some benchmarking data which is gathered from another application.
 
 ## Requires:
-nosetests
 
-flask
-
-mysql
+* nosetests
+* flask
+* mysql
 
 ## Milestones:
 
