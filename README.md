@@ -5,7 +5,9 @@ for some benchmarking data which is gathered from another application.
 
 ## Requires:
 nosetests
+
 flask
+
 mysql
 
 ## Milestones:
