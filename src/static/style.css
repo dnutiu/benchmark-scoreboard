@@ -1,4 +1,4 @@
-"""
+/*
     Author: Denis Nutiu <denis.nutiu@gmail.com>
     This file is part of scoreboard-benchmark.
 
@@ -14,21 +14,12 @@
 
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
-"""
-from flask import Flask
-import flask
-import requests
+ */
 
+header {
+    text-align: center;
+}
 
-app = flask.Flask(__name__)
-
-@app.route("/upload")
-def upload():
-    return "Upload"
-
-@app.route("/")
-def index():
-    return flask.render_template("index.html")
-
-if __name__ == "__main__":
-    app.run("")
+footer {
+    text-align: center;
+}
