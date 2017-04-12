@@ -15,20 +15,25 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
-from flask import Flask
 import flask
-import requests
 
 
 app = flask.Flask(__name__)
+
 
 @app.route("/upload")
 def upload():
     return "Upload"
 
+
 @app.route("/")
 def index():
     return flask.render_template("index.html")
+
+
+@app.errorhandler(404)
+def page_not_found_error(e):
+    return flask.render_template("404.html"), 404
 
 if __name__ == "__main__":
     app.run("")
