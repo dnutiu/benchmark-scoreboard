@@ -25,8 +25,9 @@ setup(
     packages=find_packages(),
     long_description=long_description,
     install_requires=[
-        'flask>=0.12.1',
-        'flask-bootstrap'
+        'flask',
+        'flask-bootstrap',
+        'flask-sqlalchemy'
     ],
     author="Denis Nutiu",
     author_email="denis.nutiu@gmail.com",
