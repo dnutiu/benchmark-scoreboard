@@ -5,7 +5,7 @@
     <meta name="author" content="Metonymy">
     <meta name="description" content="The scoreboard for the benchmarks!">
     <meta name="keywords" content="flask python metonymyqt benchmark scoreboard">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <title>Scoreboard!</title>
 </head>
 <body>
@@ -13,7 +13,18 @@
         <h1>The Scoreboard!</h1>
     </header>
     <main>
-
+        <table>
+            <tr>
+                <th>Text</th>
+                <th>Score</th>
+            </tr>
+            {% for item in results %}
+                <tr>
+                    <td>Text: {{ item.text }} </td>
+                    <td>Score: {{ item.score }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </main>
     <footer>
         Copyright 2017 Fellowship of the Bits
