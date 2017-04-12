@@ -15,3 +15,19 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
+from setuptools import setup, find_packages
+
+setup(
+    name="scoreboard-benchmark",
+    version="0.1",
+    packages=find_packages(),
+    install_requires=[
+        'flask>=0.12.1'
+    ],
+    author="Denis Nutiu",
+    author_email="denis.nutiu@gmail.com",
+    description="This is a simple web applications that displays scores",
+    license="GPLv3",
+    keywords="flask benchmark scores ",
+    url="N/a",
+)
