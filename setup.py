@@ -23,7 +23,7 @@ setup(
     name="scoreboard-benchmark",
     version="0.1",
     packages=find_packages(),
-    long_description=long_desgitcription,
+    long_description=long_description,
     install_requires=[
         'flask>=0.12.1'
     ],
