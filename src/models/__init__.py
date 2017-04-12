@@ -29,5 +29,9 @@ class Result(db.Model):
     text = db.Column(db.String(512))
     score = db.Column(db.Integer)
 
+    def __init__(self, text=None, score=0):
+        self.text = text
+        self.score = score
+
     def __repr__(self):
         return self.text
