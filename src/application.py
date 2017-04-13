@@ -15,14 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
-import os
-
-import flask
-
 from src.models import db
 from views.errors import error_pages
 from views.scoreboard import scoreboard
 from config import config
+import flask
 
 
 def create_app(config_name):
