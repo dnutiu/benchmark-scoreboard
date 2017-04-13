@@ -22,16 +22,6 @@ import flask
 
 scoreboard = flask.Blueprint('scoreboard', __name__, template_folder='templates')
 
-# @scoreboard.before_first_request
-# def create_test_databases():
-#     db.drop_all()
-#     db.create_all()
-#     b1 = Result(text="asda", score=100)
-#     b2 = Result(text="i7 flips flops", score=400)
-#     db.session.add(b1)
-#     db.session.add(b2)
-#     db.session.commit()
-
 
 @scoreboard.route("/upload", methods=['POST'])
 def upload():
@@ -50,8 +40,15 @@ def upload():
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
+@scoreboard.route("/entry/<id>")
+def entry(id):
+    entry_name = Result.query.filter_by(id=id).first()
+    if entry_name:
+        return flask.render_template("entry.html", name=entry_name)
+
+    flask.abort(404)
 
 @scoreboard.route("/")
 def index():
-    results = Result.query.all()
+    results = Result.query.order_by(Result.score.desc()).all()
     return flask.render_template("index.html", results=results)

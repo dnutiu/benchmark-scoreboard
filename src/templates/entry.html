@@ -13,20 +13,8 @@
         <h1>The Scoreboard!</h1>
     </header>
     <main>
-        <table>
-            <tr>
-                <th>Text</th>
-                <th>Score</th>
-                <th>Information</th>
-            </tr>
-            {% for item in results %}
-                <tr>
-                    <td>{{ item.text }}</td>
-                    <td>{{ item.score }}</td>
-                    <td><a href="{{ url_for('scoreboard.entry', id=item.id) }}">See more</a></td>
-                </tr>
-            {% endfor %}
-        </table>
+        <h1>{{ name.text }}</h1>
+        <h1>{{ name.score }}</h1>
     </main>
     <footer>
         Copyright 2017 Fellowship of the Bits
