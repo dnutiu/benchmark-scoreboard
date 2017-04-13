@@ -5,6 +5,18 @@ This is a simple web app used for an university projects.
 It should provide a simple score board display
 for some benchmarking data which is gathered from another application.
 
+## Installing
+
+First, rename the config.lock.py to config.py
+Update the file to match your configuration settings.
+
+Then run:
+
+```
+python3 setup.py install
+nohup python3 application.py &
+```
+
 ## Posting data
 
 For now, you can post data using curl.
