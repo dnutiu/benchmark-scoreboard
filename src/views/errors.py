@@ -15,26 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
-import os
-
 import flask
 
-from src.models import db
-from views.errors import error_pages
-from views.scoreboard import scoreboard
+error_pages = flask.Blueprint('error_pages', __name__, template_folder='templates')
 
-#  General Configurations
-app = flask.Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-# Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db.init_app(app)
-
-
-if __name__ == "__main__":
-    app.register_blueprint(scoreboard)
-    app.register_blueprint(error_pages)
-    app.run("0.0.0.0")
+@error_pages.app_errorhandler(404)
+def page_not_found_error(e):
+    return flask.render_template("404.html"), 404
