@@ -11,7 +11,8 @@ For now, you can post data using curl.
 
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"text":"Hello Darkness","score": 5000}' http://localhost:5000/upload
-```gi
+
+```
 
 ## Requires:
 
