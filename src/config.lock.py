@@ -16,30 +16,31 @@
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-import flask
+class Config:
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
-from src.models import db
-from views.errors import error_pages
-from views.scoreboard import scoreboard
-from config import config
-
-
-def create_app(config_name):
-    app = flask.Flask(__name__)
-    app.config.from_object(config[config_name])
-
-    config[config_name].init_app(app)
-    db.init_app(app)
-
-    app.register_blueprint(scoreboard)
-    app.register_blueprint(error_pages)
-
-    return app
+    @staticmethod
+    def init_app(app):
+        pass
 
 
-app = create_app('default')
+class DevelopmentConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.sqlite')
 
 
-if __name__ == "__main__":
-    app.run("0.0.0.0")
+class ProductionConfig(Config):
+    pass
+
+
+class TestingConfig(Config):
+    pass
+
+config = {
+    'development': DevelopmentConfig,
+    'production' : ProductionConfig,
+    'testing'    : TestingConfig,
+    'default'    : DevelopmentConfig
+}
