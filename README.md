@@ -22,8 +22,7 @@ nohup python3 application.py &
 For now, you can post data using curl.
 
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"text":"Hello Darkness","score": 5000}' http://localhost:5000/upload
-
+curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"DETAILED LOG","score": 1}' http://localhost:5000/upload
 ```
 
 ## Milestones:
