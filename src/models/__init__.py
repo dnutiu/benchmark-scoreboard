@@ -26,11 +26,15 @@ class Result(db.Model):
     """
     __tablename__ = 'results'
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(512))
+    gpu = db.Column(db.String(256))
+    cpu = db.Column(db.String(256))
+    log = db.Column(db.String(4086))
     score = db.Column(db.Integer)
 
-    def __init__(self, text=None, score=0):
-        self.text = text
+    def __init__(self, gpu=None, cpu=None, log=None, score=0):
+        self.gpu = gpu
+        self.cpu = cpu
+        self.log = log
         self.score = score
 
     def __repr__(self):

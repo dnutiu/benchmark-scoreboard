@@ -19,6 +19,7 @@ from src.models import db
 from views.errors import error_pages
 from views.scoreboard import scoreboard
 from config import config
+import flask_bootstrap
 import flask
 
 
@@ -26,9 +27,9 @@ def create_app(config_name):
     app = flask.Flask(__name__)
     app.config.from_object(config[config_name])
 
-    config[config_name].init_app(app)
     db.init_app(app)
-
+    config[config_name].init_app(app)
+    flask_bootstrap.Bootstrap(app)
     app.register_blueprint(scoreboard)
     app.register_blueprint(error_pages)
 

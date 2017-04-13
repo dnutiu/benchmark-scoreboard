@@ -27,14 +27,16 @@ scoreboard = flask.Blueprint('scoreboard', __name__, template_folder='templates'
 def upload():
     content = flask.request.get_json()
     try:
-        text = flask.escape(content['text'])
+        gpu = flask.escape(content['gpu'])
+        cpu = flask.escape(content['cpu'])
+        log = flask.escape(content['log'])
         score = int(content['score'])
     except KeyError:  # Json doesn't contain the keys we need.
         return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
     except TypeError: # The types from the json object are not correct.
         return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
 
-    entry = Result(text=text, score=score)
+    entry = Result(gpu=gpu, cpu=cpu, log=log, score=score)
     db.session.add(entry)
     db.session.commit()
 
