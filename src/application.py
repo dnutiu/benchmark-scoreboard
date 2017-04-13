@@ -18,6 +18,7 @@
 from src.models import Result
 from src.models import db
 import flask
+import json
 import os
 
 
@@ -43,9 +44,22 @@ def create_test_databases():
     db.session.commit()
 
 
-@app.route("/upload")
+@app.route("/upload", methods=['POST'])
 def upload():
-    return "Upload"
+    content = flask.request.get_json()
+    try:
+        text = flask.escape(content['text'])
+        score = int(content['score'])
+    except KeyError:  # Json doesn't contain the keys we need.
+        return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+    except TypeError: # The types from the json object are not correct.
+        return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+
+    entry = Result(text=text, score=score)
+    db.session.add(entry)
+    db.session.commit()
+
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 @app.route("/")
