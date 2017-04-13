@@ -16,6 +16,8 @@
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
+from src.models import db
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
@@ -30,8 +32,16 @@ class Config:
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.sqlite')
 
+    @staticmethod
+    def init_app(app):
+        with app.app_context():
+            print("Creating a fresh database")
+            db.drop_all()
+            db.create_all()
+
 
 class ProductionConfig(Config):
+    BOOTSTRAP_USE_MINIFIED = True
     pass
 
 
