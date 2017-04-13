@@ -8,7 +8,7 @@ for some benchmarking data which is gathered from another application.
 ## Installing
 
 First, rename the config.lock.py to config.py
-Update the file to match your configuration settings.
+and update the file to match your configuration settings.
 
 Then run:
 
