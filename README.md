@@ -26,14 +26,11 @@ curl -H "Content-Type: application/json" -X POST -d '{"text":"Hello Darkness","s
 
 ```
 
-## Requires:
-
-* nosetests
-* flask
-* mysql
-
 ## Milestones:
 
-1. Make simple view which displays benchmarks
+1. Make simple view which displays benchmarks. [Done 13 Apr 2017]
+    * Improve design
+    * Add about us page
+    * Try to use a mysql database
 2. Add user registration
 3. Perfect
