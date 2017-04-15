@@ -16,9 +16,9 @@
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
 from src.models import db
-from views.errors import error_pages
-from views.scoreboard import scoreboard
-from config import config
+from .views.errors import error_pages
+from .views.scoreboard import scoreboard
+from .config import config
 import flask_bootstrap
 import flask
 
