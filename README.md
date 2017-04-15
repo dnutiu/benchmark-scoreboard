@@ -19,7 +19,7 @@ python3 setup.py install
 nohup python3 application.py &
 ```
 
-#####Running Tests
+####Running Tests
 
 In the root directory, run the following command:
 
