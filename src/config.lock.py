@@ -35,7 +35,6 @@ class DevelopmentConfig(Config):
     @staticmethod
     def init_app(app):
         with app.app_context():
-            print("Creating a fresh database")
             db.drop_all()
             db.create_all()
 
@@ -46,7 +45,13 @@ class ProductionConfig(Config):
 
 
 class TestingConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.sqlite')
+
+    @staticmethod
+    def init_app(app):
+        with app.app_context():
+            db.drop_all()
+            db.create_all()
 
 config = {
     'development': DevelopmentConfig,
