@@ -2,6 +2,9 @@
 
 This is a simple web app used for an university projects.
 
+You will need **Python 3.3** or greater to run this app.
+Python 2 has not been tested.
+
 It should provide a simple score board display
 for some benchmarking data which is gathered from another application.
 
@@ -15,8 +18,9 @@ and update the file to match your configuration settings.
 Then run:
 
 ```bash
-python3 setup.py install
-nohup python3 application.py &
+pip install -r requirements.txt
+python setup.py install
+nohup python application.py &
 ```
 
 ### Running Tests
