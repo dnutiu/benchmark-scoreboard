@@ -59,9 +59,7 @@ class ScoreboardTestCase(unittest.TestCase):
             log="This is a logfile",
             score=200
         )
-        response = self.client.post('/upload',
-                                 data=json.dumps(data),
-                                 content_type='application/json')
+        response = self.client.post('/upload', data=json.dumps(data), content_type='application/json')
 
         self.assertTrue("true" in response.get_data(as_text=True))
         self.assertEqual(response.status_code, 200)
