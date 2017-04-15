@@ -25,7 +25,16 @@ scoreboard = flask.Blueprint('scoreboard', __name__, template_folder='templates'
 
 @scoreboard.route("/upload", methods=['POST'])
 def upload():
+    """
+    This is the upload view. It accepts JSON only.
+
+    Returns:
+        This method returns a JSON object with tree variables
+        status code, success true if the data was received successfully and false otherwise and
+        an error string.
+    """
     content = flask.request.get_json()
+
     try:
         gpu = flask.escape(content['gpu'])
         cpu = flask.escape(content['cpu'])
@@ -38,6 +47,7 @@ def upload():
         error = "invalid json object"
         return json.dumps({'error': error, 'success': False}), 400, {'ContentType': 'application/json'}
 
+    # Add data to the database
     entry = Result(gpu=gpu, cpu=cpu, log=log, score=score)
     db.session.add(entry)
     db.session.commit()
@@ -46,6 +56,10 @@ def upload():
 
 @scoreboard.route("/entry/<id>")
 def entry(id):
+    """
+        The entry view display an entry based on it's ID.
+        The entry is retrieved from the database and the ID is a primary key for the entry.
+    """
     entry_name = Result.query.filter_by(id=id).first()
     if entry_name:
         return flask.render_template("entry.html", name=entry_name)
@@ -54,5 +68,9 @@ def entry(id):
 
 @scoreboard.route("/")
 def index():
+    """
+        This method returns the index page.
+    """
+    # TODO: Add pagination. Research ?page, check if presend, send no of records to template
     results = Result.query.order_by(Result.score.desc()).all()
     return flask.render_template("index.html", results=results)
