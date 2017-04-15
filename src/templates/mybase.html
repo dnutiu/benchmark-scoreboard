@@ -9,8 +9,8 @@
 {% endblock %}
 {% block styles %}
 {{super()}}
-<link rel="stylesheet"
-      href="{{url_for('static', filename='style.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 {% endblock %}
 
 {% block content %}
@@ -38,7 +38,7 @@
     {% block header %}
     {% endblock %}
     <div class="alert alert-info" role="alert">
-        <strong>Heads up!</strong> This application is not complete! If you find any bugs please report them to:
+        <strong><span class="glyphicon glyphicon-fire"></span> Heads up!</strong> This application is not complete! If you find any bugs please report them to:
         <a href="mailto:metonymy@fedoraproject.com" class="alert-link">Metonymy</a>
     </div>
 </header>
