@@ -32,9 +32,11 @@ def upload():
         log = flask.escape(content['log'])
         score = int(content['score'])
     except KeyError:  # Json doesn't contain the keys we need.
-        return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+        error = "invalid json keys: gpu, cpu, log, score"
+        return json.dumps({'error': error,'success': False}), 400, {'ContentType': 'application/json'}
     except TypeError: # The types from the json object are not correct.
-        return json.dumps({'success': False}), 400, {'ContentType': 'application/json'}
+        error = "invalid json object"
+        return json.dumps({'error': error, 'success': False}), 400, {'ContentType': 'application/json'}
 
     entry = Result(gpu=gpu, cpu=cpu, log=log, score=score)
     db.session.add(entry)
