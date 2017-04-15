@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>404</title>
-</head>
-<!-- May god forgive me for this mistake. -->
-<body style="text-align: center">
-    <h1>Oopsy poopsy...</h1>
-    <h2>Page not found! 404</h2>
-    <h3>Please go away..</h3>
-    <h4>Leave me alone plz.</h4>
-</body>
-</html>
+{% extends "mybase.html" %}
+{% block title %}FOTB - 404 :({% endblock %}
+
+{% block main %}
+{{ super() }}
+    <div class="text-center">
+        <h1>Oopsy poopsy...</h1>
+        <h2>Page not found! 404</h2>
+    </div>
+{% endblock %}
