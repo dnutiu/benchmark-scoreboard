@@ -35,13 +35,11 @@ class DevelopmentConfig(Config):
     @staticmethod
     def init_app(app):
         with app.app_context():
-            db.drop_all()
             db.create_all()
 
 
 class ProductionConfig(Config):
     BOOTSTRAP_USE_MINIFIED = True
-    pass
 
 
 class TestingConfig(Config):
