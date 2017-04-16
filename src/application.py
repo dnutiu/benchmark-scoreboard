@@ -19,6 +19,7 @@ from src.models import db
 from src.views.errors import error_pages
 from src.views.scoreboard import scoreboard
 from src.config import config
+import sys
 import flask_bootstrap
 import flask
 
@@ -35,8 +36,11 @@ def create_app(config_name):
 
     return app
 
-
-app = create_app('default')
+try:
+    app = create_app(sys.argv[1])
+except (IndexError, KeyError):
+    print("Using default configuration.")
+    app = create_app('default')
 
 
 if __name__ == "__main__":

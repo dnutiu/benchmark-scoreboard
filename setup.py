@@ -27,7 +27,8 @@ setup(
     install_requires=[
         'flask',
         'flask-bootstrap',
-        'flask-sqlalchemy'
+        'flask-sqlalchemy',
+        'pymysql'
     ],
     author="Denis Nutiu",
     author_email="denis.nutiu@gmail.com",

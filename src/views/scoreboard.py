@@ -39,9 +39,9 @@ def upload():
     content = flask.request.get_json()
 
     try:
-        gpu = flask.escape(content['gpu'])
-        cpu = flask.escape(content['cpu'])
-        log = flask.escape(content['log'])
+        gpu = content['gpu']
+        cpu = content['cpu']
+        log = content['log']
         score = int(content['score'])
     except KeyError:  # Json doesn't contain the keys we need.
         error = "invalid json keys: gpu, cpu, log, score"

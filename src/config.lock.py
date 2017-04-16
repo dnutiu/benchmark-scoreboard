@@ -40,7 +40,18 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     BOOTSTRAP_USE_MINIFIED = True
+    MYSQL_USERNAME = ""
+    MYSQL_PASSWORD = ""
+    MYSQL_HOSTNAME = ""
+    MYSQL_DATABASE = ""
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{username}:{password}@{hostname}/{database}'\
+        .format(username = MYSQL_USERNAME, password = MYSQL_PASSWORD,
+                hostname = MYSQL_HOSTNAME, database = MYSQL_DATABASE)
 
+    @staticmethod
+    def init_app(app):
+        with app.app_context():
+            db.create_all()
 
 class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test_database.sqlite')
