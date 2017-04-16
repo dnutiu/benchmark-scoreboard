@@ -13,11 +13,11 @@
   </div>
   <div class="panel-body">
       <h2><small><i class="glyphicon glyphicon-plus"></i></small> Score: {{ name.score }}</h2>
-      <h3><small><i class="glyphicon glyphicon-leaf"></i></small> GPU: {{ name.gpu }}</h3>
-      <h3><small><i class="glyphicon glyphicon-hdd"></i></small> CPU: {{ name.cpu }}</h3>
+      <h3><small><i class="glyphicon glyphicon-leaf"></i></small> GPU: {{ name.gpu | safe}}</h3>
+      <h3><small><i class="glyphicon glyphicon-hdd"></i></small> CPU: {{ name.cpu | safe}}</h3>
       <h3><small><i class="glyphicon glyphicon-list-alt"></i></small> Logfile</h3>
       <div class="well">
-          {{ name.log }}
+          {{ name.log | safe }}
       </div>
   </div>
 </div>
