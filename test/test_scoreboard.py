@@ -18,6 +18,7 @@
 from src.models import db, Result
 from src.application import create_app
 import unittest
+import os
 import json
 
 
@@ -31,6 +32,7 @@ class ScoreboardTestCase(unittest.TestCase):
 
     def tearDown(self):
         db.drop_all()
+        os.remove("src/test_database.sqlite")
         self.app_context.pop()
 
     def test_index(self):
