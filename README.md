@@ -44,6 +44,6 @@ curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cp
 1. Make simple view which displays benchmarks. [Done 13 Apr 2017]
     * Improve design [Done]
     * Add about us page [?]
-    * Try to use a mysql database
+    * Try to use a mysql database [Done]
 2. Add user registration
 3. Perfect
