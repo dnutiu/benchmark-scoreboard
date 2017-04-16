@@ -63,3 +63,7 @@ class ScoreboardTestCase(unittest.TestCase):
 
         self.assertTrue("true" in response.get_data(as_text=True))
         self.assertEqual(response.status_code, 200)
+
+    def test_get_upload(self):
+        response = self.client.get('/upload')
+        self.assertEqual(response.status_code, 404)

@@ -23,7 +23,7 @@ import flask
 scoreboard = flask.Blueprint('scoreboard', __name__, template_folder='templates')
 
 
-@scoreboard.route("/upload", methods=['POST'])
+@scoreboard.route("/upload", methods=['POST', 'GET'])
 def upload():
     """
     This is the upload view. It accepts JSON only.
@@ -33,6 +33,9 @@ def upload():
         status code, success true if the data was received successfully and false otherwise and
         an error string.
     """
+    if flask.request.method == 'GET':
+        flask.abort(404)
+
     content = flask.request.get_json()
 
     try:
