@@ -37,6 +37,7 @@ def create_app(config_name):
     return app
 
 try:
+    print("Running with configuration: " + sys.argv[1])
     app = create_app(sys.argv[1])
 except (IndexError, KeyError):
     print("Using default configuration.")
