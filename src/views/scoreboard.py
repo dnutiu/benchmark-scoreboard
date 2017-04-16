@@ -34,7 +34,7 @@ def upload():
         an error string.
     """
     if flask.request.method == 'GET':
-        flask.abort(404)
+        return flask.render_template('upload.html')
 
     content = flask.request.get_json()
 

@@ -68,4 +68,4 @@ class ScoreboardTestCase(unittest.TestCase):
 
     def test_get_upload(self):
         response = self.client.get('/upload')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)

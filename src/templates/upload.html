@@ -1,0 +1,12 @@
+{% extends "mybase.html" %}
+{% block title %}FOTB - Uploading{% endblock %}
+
+{% block main %}
+{{ super() }}
+<div>
+    <h4>Uploading Data</h4>
+    <p>Uploading data is simple, all you need to is send a POST request with content-type <code>application/json</code> to this URL.</p>
+    <p>Your JSON must respect all the required fields.</p>
+    <p>Example: <code>curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"So this will be a detailed log.","score": 1}' http://localhost:5000/upload</code></p>
+</div>
+{% endblock %}
