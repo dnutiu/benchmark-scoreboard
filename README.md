@@ -1,5 +1,7 @@
 # scoreboard-benchmark 
 
+![Travis CI](https://travis-ci.com/Metonimie/benchmark-scoreboard.svg?token=A1YGCrBhxwT3nHmAHZ9Q&branch=master)
+
 This is a simple web app used for an university projects.
 
 You will need **Python 3.3** or greater to run this app.
