@@ -15,10 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
+try:  # This is mainly required for Travis CI automated testing.
+    from src.config import config
+except ImportError:
+    from src.config_lock import config
+
 from src.models import db
 from src.views.errors import error_pages
 from src.views.scoreboard import scoreboard
-from src.config import config
 import sys
 import flask_bootstrap
 import flask
