@@ -21,8 +21,17 @@ from src.models import db
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
+    """
+        This class contains general configuration settings that are available everywhere.
+        You may edit this class and the ProductionConfig class if you wish to deploy.
+    """
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    # Url Settings
+    APP_IP = "0.0.0.0"
+    APP_PORT = 5000
+    # Pagination
+    MAX_RESULTS_PER_PAGE = 10
 
     @staticmethod
     def init_app(app):

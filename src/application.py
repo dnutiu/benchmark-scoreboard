@@ -49,4 +49,4 @@ except (IndexError, KeyError):
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0")
+    app.run(app.config["APP_IP"], app.config["APP_PORT"])
