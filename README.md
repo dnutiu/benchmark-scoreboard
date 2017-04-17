@@ -4,8 +4,8 @@
 
 This is a simple web app used for an university projects.
 
-You will need **Python 3.3** or greater to run this app.
-Python 2 has not been tested.
+You will need **Python 2.6+ or Python 3.3+**  to run this app.
+Flask doesn't support Python 3.2.
 
 It should provide a simple score board display
 for some benchmarking data which is gathered from another application.
@@ -14,7 +14,8 @@ for some benchmarking data which is gathered from another application.
 
 To install and run the application, you must do the following:
 
-First, rename the config.lock.py to config.py
+Rename the config.lock.py to config.py, so you can safely modify the config.py and still have
+config.lock.py as a template.
 and update the file to match your configuration settings.
 
 Then run:
