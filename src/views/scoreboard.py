@@ -92,7 +92,6 @@ def index():
     offset = page_no * results_per_page
     available_pages = math.floor((len(results) - offset) / results_per_page)
 
-
     # Compute the available pages to the left
     pages_left = min(page_no, max_pages)
     # Compute the available pages to the right

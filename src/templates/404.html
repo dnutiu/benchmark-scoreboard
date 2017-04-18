@@ -6,5 +6,9 @@
     <div class="text-center">
         <h1>Oopsy poopsy...</h1>
         <h2>Page not found! 404</h2>
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-fire"></span> If you think this page should be here please contact <a href="mailto:{{ config.ADMIN_EMAIL }}" class="alert-link">{{ config.ADMIN_NAME }}</a>,
+            describing why it should be here. <strong>Thank you</strong> very much! <span class="glyphicon glyphicon-fire"></span>
+        </div>
     </div>
 {% endblock %}
