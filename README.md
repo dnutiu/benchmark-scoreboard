@@ -39,5 +39,5 @@ python -m unittest
 You can post data using curl. There are no restrictions on whoever can post data.
 
 ```bash
-curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"DETAILED LOG","score": 1}' http://localhost:5000/upload
+curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"DETAILED LOG","score": 1}' http://localhost:5000/result
 ```
