@@ -27,7 +27,9 @@ class Config:
     """
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    # Url Settings
+    # Server Settings
+    ADMIN_EMAIL = "example@example.com"
+    ADMIN_NAME = "Webmaster"
     APP_IP = "0.0.0.0"
     APP_PORT = 5000
     # Pagination

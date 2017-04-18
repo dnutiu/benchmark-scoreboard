@@ -23,3 +23,7 @@ error_pages = flask.Blueprint('error_pages', __name__, template_folder='template
 @error_pages.app_errorhandler(404)
 def page_not_found_error(e):
     return flask.render_template("404.html"), 404
+
+@error_pages.app_errorhandler(500)
+def internal_server_error(e):
+    return flask.render_template("500.html"), 500

@@ -1,0 +1,14 @@
+{% extends "mybase.html" %}
+{% block title %}FOTB - 500 :({% endblock %}
+
+{% block main %}
+{{ super() }}
+    <div class="text-center">
+        <h1>Oopsy poopsy...</h1>
+        <h2>Something bad has happened...</h2>
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-fire"></span> If you want to help fixing this issue please contact <a href="mailto:{{ config.ADMIN_EMAIL }}" class="alert-link">{{ config.ADMIN_NAME }}</a>,
+            describing in detail how you ended on this page. <strong>Thank you</strong> very much! <span class="glyphicon glyphicon-fire"></span>
+        </div>
+    </div>
+{% endblock %}
