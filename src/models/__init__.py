@@ -28,7 +28,7 @@ class Result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     gpu = db.Column(db.String(256))
     cpu = db.Column(db.String(256))
-    log = db.Column(db.String(4086))
+    log = db.Column(db.String(10000))
     score = db.Column(db.Integer)
 
     def __init__(self, gpu=None, cpu=None, log=None, score=0):
@@ -38,4 +38,4 @@ class Result(db.Model):
         self.score = score
 
     def __repr__(self):
-        return self.text
+        return self.gpu
