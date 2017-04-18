@@ -40,7 +40,7 @@
     {% endblock %}
     <div class="alert alert-info" role="alert">
         <strong><span class="glyphicon glyphicon-fire"></span> Heads up!</strong> This application is not complete! If you find any bugs please report them to:
-        <a href="mailto:metonymy@fedoraproject.com" class="alert-link">Metonymy</a>
+        <a href="mailto:{{ config.ADMIN_EMAIL }}" class="alert-link">{{ config.ADMIN_NAME }}</a>
     </div>
 </header>
 <div class="container" role="main">
