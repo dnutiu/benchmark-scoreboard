@@ -44,14 +44,14 @@ class ScoreboardTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_entry(self):
-        response = self.client.get("/entry/1")
+        response = self.client.get("/result/1")
         self.assertEqual(response.status_code, 404)
 
         data = Result(cpu="TestCPU", gpu="TestGPU", log="TestLOG")
         db.session.add(data)
         db.session.commit()
 
-        response = self.client.get("/entry/1")
+        response = self.client.get("/result/1")
         self.assertEqual(response.status_code, 200)
 
     def test_add_entry(self):
@@ -61,10 +61,10 @@ class ScoreboardTestCase(unittest.TestCase):
             log="This is a logfile",
             score=200
         )
-        response = self.client.post('/upload', data=json.dumps(data), content_type='application/json')
+        response = self.client.post('/result', data=json.dumps(data), content_type='application/json')
 
         self.assertTrue("true" in response.get_data(as_text=True))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
     def test_get_upload(self):
         response = self.client.get('/upload')

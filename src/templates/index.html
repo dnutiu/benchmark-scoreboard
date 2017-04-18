@@ -25,7 +25,7 @@
                 <td>{{ item.gpu }}</td>
                 <td>{{ item.cpu }}</td>
                 <td>{{ item.score }}</td>
-                <td><a href="{{ url_for('scoreboard.entry', id=item.id) }}">See more</a></td>
+                <td><a href="{{ url_for('scoreboard.result', id=item.id) }}">See more</a></td>
             </tr>
             {% endfor %}
         </tbody>

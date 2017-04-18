@@ -17,27 +17,35 @@
 """
 from src.models import Result
 from src.models import db
-import json
 import math
 import flask
 
 scoreboard = flask.Blueprint('scoreboard', __name__, template_folder='templates')
 
 
-@scoreboard.route("/upload", methods=['POST', 'GET'])
+@scoreboard.route("/upload")
 def upload():
     """
-    This is the upload view. It accepts JSON only.
-
-    Returns:
-        This method returns a JSON object with tree variables
-        status code, success true if the data was received successfully and false otherwise and
-        an error string.
+        Returns a page containing instructions on how to upload things.
     """
-    if flask.request.method == 'GET':
-        return flask.render_template('upload.html')
+    return flask.render_template('upload.html')
 
+# @scoreboard.route("/result", methods=['GET'])
+# def result_get():
+#     """
+#     Instead of method not allowed we redirect to scoreboard.upload
+#     """
+#     return flask.redirect(flask.url_for('scoreboard.upload'))
+
+
+@scoreboard.route("/result", methods=['POST'])
+def result_post():
+    """
+    Allows the upload of resources via POST.
+    """
     content = flask.request.get_json()
+    error = None
+    gpu = cpu = log = score = None
 
     try:
         gpu = content['gpu']
@@ -46,36 +54,39 @@ def upload():
         score = int(content['score'])
     except KeyError:  # Json doesn't contain the keys we need.
         error = "invalid json keys: gpu, cpu, log, score"
-        return json.dumps({'error': error, 'success': False}), 400, {'ContentType': 'application/json'}
     except TypeError:  # The types from the json object are not correct.
         error = "invalid json object"
-        return json.dumps({'error': error, 'success': False}), 400, {'ContentType': 'application/json'}
+
+    if error:
+        return flask.jsonify({'error': error, 'success': False}), 400
 
     # Add data to the database
     entry = Result(gpu=gpu, cpu=cpu, log=log, score=score)
     db.session.add(entry)
     db.session.commit()
 
-    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    location = "/result/{}".format(entry.id)
+
+    return flask.jsonify({'success': True, 'location': location}), 201, {'location': location}
 
 
-@scoreboard.route("/entry/<id>")
-def entry(id):
+@scoreboard.route("/result/<id>", methods=['GET'])
+def result(id):
     """
-        The entry view display an entry based on it's ID.
-        The entry is retrieved from the database and the ID is a primary key for the entry.
+    Fetches an entry from the database and displays it in a view.
+    The entry is retrieved from the database and the ID is a primary key for the entry.
     """
     entry_name = Result.query.filter_by(id=id).first()
     if entry_name:
-        return flask.render_template("entry.html", name=entry_name)
-
-    flask.abort(404)
+        return flask.render_template("result.html", name=entry_name)
+    else:
+        flask.abort(404)
 
 
 @scoreboard.route("/")
 def index():
     """
-        This method returns the index page.
+    This method returns the index page.
     """
     results_per_page = flask.current_app.config["MAX_RESULTS_PER_PAGE"]
     max_pages = flask.current_app.config["MAX_PAGES"]
@@ -85,7 +96,8 @@ def index():
     page_no = flask.request.args.get('page')
     try:
         page_no = int(page_no) - 1
-        if page_no < 0: page_no = 0
+        if page_no < 0:
+            page_no = 0
     except (TypeError, ValueError):  # page_no is not an int
         page_no = 0
 
