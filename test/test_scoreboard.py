@@ -69,3 +69,33 @@ class ScoreboardTestCase(unittest.TestCase):
     def test_get_upload(self):
         response = self.client.get('/upload')
         self.assertEqual(response.status_code, 200)
+
+    def test_pagination(self):
+        data1 = Result(cpu="TestCPU", gpu="TestGPU", log="TestLOG", score=11)
+        data2 = Result(cpu="TestCPU", gpu="TestGPU", log="TestLOG", score=22)
+        data3 = Result(cpu="TestCPU", gpu="TestGPU", log="TestLOG", score=33)
+
+        response = self.client.get("/")
+        self.assertTrue("No results found" in response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 200)
+
+        db.session.add(data1)
+        db.session.commit()
+
+        response = self.client.get("/?page=1")
+        self.assertTrue("11" in response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 200)
+
+        db.session.add(data2)
+        db.session.commit()
+
+        response = self.client.get("/?page=2")
+        self.assertTrue("11" in response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 200)
+
+        db.session.add(data3)
+        db.session.commit()
+
+        response = self.client.get("/?page=3")
+        self.assertTrue("11" in response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 200)

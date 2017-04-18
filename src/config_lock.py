@@ -31,7 +31,8 @@ class Config:
     APP_IP = "0.0.0.0"
     APP_PORT = 5000
     # Pagination
-    MAX_RESULTS_PER_PAGE = 10
+    MAX_RESULTS_PER_PAGE = 50
+    MAX_PAGES = 2
 
     @staticmethod
     def init_app(app):
@@ -49,6 +50,7 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     BOOTSTRAP_USE_MINIFIED = True
+    #  Database Configuration
     MYSQL_USERNAME = ""
     MYSQL_PASSWORD = ""
     MYSQL_HOSTNAME = ""
@@ -63,6 +65,7 @@ class ProductionConfig(Config):
             db.create_all()
 
 class TestingConfig(Config):
+    MAX_RESULTS_PER_PAGE = 1
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test_database.sqlite')
 
     @staticmethod

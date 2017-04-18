@@ -18,6 +18,7 @@
 from src.models import Result
 from src.models import db
 import json
+import math
 import flask
 
 scoreboard = flask.Blueprint('scoreboard', __name__, template_folder='templates')
@@ -76,6 +77,29 @@ def index():
     """
         This method returns the index page.
     """
-    # TODO: Add pagination. Research ?page, check if presend, send no of records to template
+    results_per_page = flask.current_app.config["MAX_RESULTS_PER_PAGE"]
+    max_pages = flask.current_app.config["MAX_PAGES"]
     results = Result.query.order_by(Result.score.desc()).all()
-    return flask.render_template("index.html", results=results)
+
+    #  We're extracting the page argument from the url, if it's not present we set page_no to zero.
+    page_no = flask.request.args.get('page')
+    try:
+        page_no = int(page_no) - 1
+        if page_no < 0: page_no = 0
+    except (TypeError, ValueError):  # page_no is not an int
+        page_no = 0
+
+    offset = page_no * results_per_page
+    available_pages = math.floor((len(results) - offset) / results_per_page)
+
+
+    # Compute the available pages to the left
+    pages_left = min(page_no, max_pages)
+    # Compute the available pages to the right
+    pages_right = min(max_pages, available_pages)
+    # Create pagination information tuple
+    pagination_information = len(results), results_per_page, page_no + 1, pages_left, pages_right
+
+    return flask.render_template("index.html",
+                                 results=results[offset:offset + results_per_page],
+                                 pagination=pagination_information)
