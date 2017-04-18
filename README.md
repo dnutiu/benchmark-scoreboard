@@ -41,12 +41,3 @@ You can post data using curl. There are no restrictions on whoever can post data
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"DETAILED LOG","score": 1}' http://localhost:5000/upload
 ```
-
-## Milestones:
-
-1. Make simple view which displays benchmarks. [Done 13 Apr 2017]
-    * Improve design [Done]
-    * Add about us page [?]
-    * Try to use a mysql database [Done]
-2. Add user registration
-3. Perfect
