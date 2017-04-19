@@ -8,5 +8,6 @@
     <p>Uploading data is simple, all you need to is send a POST request with content-type <code>application/json</code> to <code>/result</code>.</p>
     <p>Your JSON must respect all the required fields.</p>
     <p>Example: <code>curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"So this will be a detailed log.","score": 1}' http://localhost:5000/result</code></p>
+    <p>If the resource has been added sucessfully then the status code of <code>201</code> is returned.</p>
 </div>
 {% endblock %}
