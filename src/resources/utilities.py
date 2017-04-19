@@ -18,6 +18,17 @@
 
 
 def to_zero_count(page_no):
+    """
+    Will subtract 1 from the argument it gets, converting it to an int.
+    If the conversion fails or the argument it's negatives it returns zero instead.
+
+    Args:
+        page_no: An integer
+
+    Returns:
+        It returns page_no - 1 if page_no can be safely converted to an integer else it returns zero.
+        If page_no is negative, it returns zero.
+    """
     try:
         page_no = int(page_no) - 1
         if page_no < 0:
