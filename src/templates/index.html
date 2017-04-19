@@ -41,25 +41,30 @@
                     <span aria-hidden="true">&laquo;</span>
                 {% else %}
                 <li>
-                    <a href="{{ url_for('scoreboard.index', page=pagination[2] - 1) }}" aria-label="Previous">
+                    <a href="{{ url_for('scoreboard.index', page=pagination[2] - 1,
+                             result_name=request.args.get('result_name')) }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 {% endif %}
                 {# Things are kinda messy here #}
                 {% for i in range(pagination[2] - pagination[3] - 1, pagination[2] - 1) %}
-                    <li><a href="{{ url_for('scoreboard.index', page=i + 1) }}">{{ i + 1 }}</a></li>
+                    <li><a href="{{ url_for('scoreboard.index', page=i + 1,
+                                 result_name=request.args.get('result_name')) }}">{{ i + 1 }}</a></li>
                 {% endfor %}
-                <li class="active"><a href="{{ url_for('scoreboard.index', page=pagination[2]) }}">{{ pagination[2] }}</a></li>
+                <li class="active"><a href="{{ url_for('scoreboard.index', page=pagination[2],
+                                            result_name=request.args.get('result_name')) }}">{{ pagination[2] }}</a></li>
                 {% for i in range(pagination[2], pagination[2] + pagination[4]) %}
-                    <li><a href="{{ url_for('scoreboard.index', page=i + 1) }}">{{ i + 1 }}</a></li>
+                    <li><a href="{{ url_for('scoreboard.index', page=i + 1,
+                                 result_name=request.args.get('result_name')) }}">{{ i + 1 }}</a></li>
                 {% endfor %}
                 {% if pagination[4] <= 0 %}
                 <li class="disabled">
                         <span aria-hidden="true">&raquo;</span>
                 {% else %}
                 <li>
-                    <a href="{{ url_for('scoreboard.index', page=pagination[2] + 1) }}" aria-label="Next">
+                    <a href="{{ url_for('scoreboard.index', page=pagination[2] + 1,
+                             result_name=request.args.get('result_name')) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 {% endif %}

@@ -85,7 +85,7 @@ def result(id):
         flask.abort(404)
 
 
-@scoreboard.route("/")
+@scoreboard.route("/", methods=['GET', 'POST'])
 def index():
     """
     This method returns the index page.
@@ -93,15 +93,24 @@ def index():
     results_per_page = flask.current_app.config["MAX_RESULTS_PER_PAGE"]
     max_pages = flask.current_app.config["MAX_PAGES"]
 
-    #  We're extracting the page argument from the url, if it's not present we set page_no to zero.
+    # We're extracting the page argument from the url, if it's not present we set page_no to zero.
     page_no = utilities.to_zero_count(flask.request.args.get('page'))
+    searched_name = flask.request.args.get('result_name')
 
-    # Compute the offset and the available pages
-    results_length = Result.query.count()
+    # The filters dictionary is used to filter the data
+    filters = {}
+    if searched_name is not None and searched_name is not '':
+        filters['name'] = searched_name
+
+    # Computing the offset for the results
     offset = page_no * results_per_page
-    available_pages = math.floor((results_length - offset) / results_per_page)
 
-    results = Result.query.order_by(Result.score.desc()).offset(offset).limit(results_per_page)
+    # We're getting the results length and data
+    results_length = Result.query.filter_by(**filters).count()
+    results = Result.query.filter_by(**filters).order_by(Result.score.desc()).offset(offset).limit(results_per_page)
+
+    # This is used by the view to display available pages, if any.
+    available_pages = math.floor((results_length - offset) / results_per_page)
 
     # Compute the available pages to the left
     pages_left = min(page_no, max_pages)

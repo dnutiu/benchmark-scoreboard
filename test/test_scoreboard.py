@@ -67,6 +67,17 @@ class ScoreboardTestCase(unittest.TestCase):
         self.assertTrue("true" in response.get_data(as_text=True))
         self.assertEqual(response.status_code, 201)
 
+    def test_search(self):
+        e = Result(name="Test", cpu="TestCPU", gpu="TestGPU", log="TestLOG", score=11)
+        response = self.client.post('/', data={"result_name": "test"})
+        self.assertTrue("No results found" in response.get_data(as_text=True))
+
+        db.session.add(e)
+        db.session.commit()
+
+        response = self.client.post('/', data={"result_name": "test"})
+        self.assertFalse("No results found" in response.get_data(as_text=True))
+
     def test_get_upload(self):
         response = self.client.get('/upload')
         self.assertEqual(response.status_code, 200)
