@@ -17,6 +17,7 @@
 """
 from src.models import Result
 from src.models import db
+from src.resources import utilities
 import math
 import flask
 
@@ -93,13 +94,7 @@ def index():
     results = Result.query.order_by(Result.score.desc()).all()
 
     #  We're extracting the page argument from the url, if it's not present we set page_no to zero.
-    page_no = flask.request.args.get('page')
-    try:
-        page_no = int(page_no) - 1
-        if page_no < 0:
-            page_no = 0
-    except (TypeError, ValueError):  # page_no is not an int
-        page_no = 0
+    page_no = utilities.to_zero_count(flask.request.args.get('page'))
 
     offset = page_no * results_per_page
     available_pages = math.floor((len(results) - offset) / results_per_page)
