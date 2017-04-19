@@ -20,6 +20,7 @@ from src.models import db
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
     """
         This class contains general configuration settings that are available everywhere.
@@ -27,9 +28,11 @@ class Config:
     """
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    DEBUG = True
     # Server Settings
-    ADMIN_EMAIL = "example@example.com"
-    ADMIN_NAME = "Webmaster"
+    SERVER_NAME = "localhost:5000"  # If not set correctly will generate lots of 404's
+    ADMIN_EMAIL = "admin@localhost.com"
+    ADMIN_NAME = "WebMaster"
     APP_IP = "0.0.0.0"
     APP_PORT = 5000
     # Pagination
@@ -52,19 +55,21 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     BOOTSTRAP_USE_MINIFIED = True
+    DEBUG = False
     #  Database Configuration
     MYSQL_USERNAME = ""
     MYSQL_PASSWORD = ""
     MYSQL_HOSTNAME = ""
     MYSQL_DATABASE = ""
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{username}:{password}@{hostname}/{database}'\
-        .format(username = MYSQL_USERNAME, password = MYSQL_PASSWORD,
-                hostname = MYSQL_HOSTNAME, database = MYSQL_DATABASE)
+        .format(username=MYSQL_USERNAME, password=MYSQL_PASSWORD,
+                hostname=MYSQL_HOSTNAME, database=MYSQL_DATABASE)
 
     @staticmethod
     def init_app(app):
         with app.app_context():
             db.create_all()
+
 
 class TestingConfig(Config):
     MAX_RESULTS_PER_PAGE = 1
@@ -78,7 +83,7 @@ class TestingConfig(Config):
 
 config = {
     'development': DevelopmentConfig,
-    'production' : ProductionConfig,
-    'testing'    : TestingConfig,
-    'default'    : DevelopmentConfig
+    'production': ProductionConfig,
+    'testing': TestingConfig,
+    'default': DevelopmentConfig
 }
