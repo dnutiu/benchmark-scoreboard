@@ -91,21 +91,24 @@ def index():
     """
     results_per_page = flask.current_app.config["MAX_RESULTS_PER_PAGE"]
     max_pages = flask.current_app.config["MAX_PAGES"]
-    results = Result.query.order_by(Result.score.desc()).all()
 
     #  We're extracting the page argument from the url, if it's not present we set page_no to zero.
     page_no = utilities.to_zero_count(flask.request.args.get('page'))
 
+    # Compute the offset and the available pages
+    results_length = Result.query.count()
     offset = page_no * results_per_page
-    available_pages = math.floor((len(results) - offset) / results_per_page)
+    available_pages = math.floor((results_length - offset) / results_per_page)
+
+    results = Result.query.order_by(Result.score.desc()).offset(offset).limit(results_per_page)
 
     # Compute the available pages to the left
     pages_left = min(page_no, max_pages)
     # Compute the available pages to the right
     pages_right = min(max_pages, available_pages)
     # Create pagination information tuple
-    pagination_information = len(results), results_per_page, page_no + 1, pages_left, pages_right
+    pagination_information = results_length, results_per_page, page_no + 1, pages_left, pages_right
 
     return flask.render_template("index.html",
-                                 results=results[offset:offset + results_per_page],
+                                 results=results,
                                  pagination=pagination_information)
