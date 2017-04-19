@@ -46,15 +46,16 @@ def result_post():
     """
     content = flask.request.get_json()
     error = None
-    gpu = cpu = log = score = None
+    gpu = cpu = log = score = name = None
 
     try:
+        name = content['name']
         gpu = content['gpu']
         cpu = content['cpu']
         log = content['log']
         score = int(content['score'])
     except KeyError:  # Json doesn't contain the keys we need.
-        error = "invalid json keys: gpu, cpu, log, score"
+        error = "invalid json keys: gpu, cpu, log, score name"
     except TypeError:  # The types from the json object are not correct.
         error = "invalid json object"
 
@@ -62,7 +63,7 @@ def result_post():
         return flask.jsonify({'error': error, 'success': False}), 400
 
     # Add data to the database
-    entry = Result(gpu=gpu, cpu=cpu, log=log, score=score)
+    entry = Result(name=name, gpu=gpu, cpu=cpu, log=log, score=score)
     db.session.add(entry)
     db.session.commit()
 

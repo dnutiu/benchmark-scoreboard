@@ -56,6 +56,7 @@ class ScoreboardTestCase(unittest.TestCase):
 
     def test_add_entry(self):
         data = dict(
+            name="Test",
             gpu="CpuTesting2",
             cpu="GPUTesting2",
             log="This is a logfile",

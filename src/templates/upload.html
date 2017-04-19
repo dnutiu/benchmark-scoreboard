@@ -7,7 +7,8 @@
     <h4>Uploading Data</h4>
     <p>Uploading data is simple, all you need to is send a POST request with content-type <code>application/json</code> to <code>/result</code>.</p>
     <p>Your JSON must respect all the required fields.</p>
-    <p>Example: <code>curl -H "Content-Type: application/json" -X POST -d '{"gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"So this will be a detailed log.","score": 1}' http://localhost:5000/result</code></p>
+    <p>Example: <code>curl -H "Content-Type: application/json" -X POST -d '{"name":"Anonymous", "gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"So this will be a detailed log.","score": 1}' http://localhost:5000/result</code></p>
     <p>If the resource has been added sucessfully then the status code of <code>201</code> is returned.</p>
+    <p>The <code>name</code> field can be used with the build in search functionality to search for your own results.</p>
 </div>
 {% endblock %}

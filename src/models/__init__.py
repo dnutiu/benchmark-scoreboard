@@ -26,12 +26,14 @@ class Result(db.Model):
     """
     __tablename__ = 'results'
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
     gpu = db.Column(db.String(256))
     cpu = db.Column(db.String(256))
     log = db.Column(db.String(10000))
     score = db.Column(db.Integer)
 
-    def __init__(self, gpu=None, cpu=None, log=None, score=0):
+    def __init__(self, name="Anonymous", gpu=None, cpu=None, log=None, score=0):
+        self.name = name
         self.gpu = gpu
         self.cpu = cpu
         self.log = log
