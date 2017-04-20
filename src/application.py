@@ -23,6 +23,7 @@ except ImportError:
 from src.models import db
 from src.views.errors import error_pages
 from src.views.scoreboard import scoreboard
+from src.resources.utilities import cache
 import sys
 import flask_bootstrap
 import flask
@@ -33,6 +34,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
 
     db.init_app(app)
+    cache.init_app(app)
     config[config_name].init_app(app)
     flask_bootstrap.Bootstrap(app)
     app.register_blueprint(scoreboard)

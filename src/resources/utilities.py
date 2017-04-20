@@ -16,6 +16,10 @@
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from flask_cache import Cache
+
+cache = Cache()
+
 
 def to_zero_count(page_no):
     """

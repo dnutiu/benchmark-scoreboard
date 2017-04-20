@@ -24,6 +24,7 @@ import flask
 scoreboard = flask.Blueprint('scoreboard', __name__, template_folder='templates')
 
 
+@utilities.cache.cached(timeout=60*10)
 @scoreboard.route("/upload")
 def upload():
     """
@@ -72,6 +73,7 @@ def result_post():
     return flask.jsonify({'success': True, 'location': location}), 201, {'location': location}
 
 
+@utilities.cache.cached(timeout=60*5)
 @scoreboard.route("/result/<id>", methods=['GET'])
 def result(id):
     """
@@ -85,6 +87,7 @@ def result(id):
         flask.abort(404)
 
 
+@utilities.cache.cached(timeout=60)
 @scoreboard.route("/", methods=['GET', 'POST'])
 def index():
     """

@@ -30,11 +30,14 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     DEBUG = True
     # Server Settings
-    SERVER_NAME = "localhost:5000"  # If not set correctly will generate lots of 404's
-    ADMIN_EMAIL = "admin@localhost.com"
-    ADMIN_NAME = "WebMaster"
-    APP_IP = "0.0.0.0"
+    SERVER_NAME = "localhost:5000"
+    ADMIN_EMAIL = "metonymy@fedoraproject.com"
+    ADMIN_NAME = "Metonymy"
+    APP_IP = "localhost"
     APP_PORT = 5000
+    CACHE_TYPE = "memcached"
+    CACHE_DEFAULT_TIMEOUT = 60
+    CACHE_KEY_PREFIX = "benchmark_scoreboard"
     # Pagination
     MAX_RESULTS_PER_PAGE = 50
     MAX_PAGES = 2
@@ -46,6 +49,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.sqlite')
+    CACHE_TYPE = "simple"
 
     @staticmethod
     def init_app(app):
@@ -73,6 +77,7 @@ class ProductionConfig(Config):
 
 class TestingConfig(Config):
     MAX_RESULTS_PER_PAGE = 1
+    CACHE_TYPE = "simple"
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test_database.sqlite')
 
     @staticmethod
