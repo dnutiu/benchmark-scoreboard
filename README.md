@@ -23,7 +23,7 @@ Then run:
 ```bash
 pip install -r requirements.txt
 python setup.py install
-nohup python application.py &
+python application.py
 ```
 
 ### Running Tests
