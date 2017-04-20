@@ -60,7 +60,7 @@ class ScoreboardTestCase(unittest.TestCase):
             gpu="CpuTesting2",
             cpu="GPUTesting2",
             log="This is a logfile",
-            score=200
+            score="200"
         )
         response = self.client.post('/result', data=json.dumps(data), content_type='application/json')
 
@@ -81,6 +81,15 @@ class ScoreboardTestCase(unittest.TestCase):
     def test_get_upload(self):
         response = self.client.get('/upload')
         self.assertEqual(response.status_code, 200)
+
+    def test_method_not_allowed(self):
+        response = self.client.post('/upload')
+        self.assertEqual(response.status_code, 405)
+        self.assertTrue("405" in response.get_data(as_text=True))
+
+    def test_bad_request(self):
+        response = self.client.post('/result', data={'mambo':'jambo'})
+        self.assertEqual(response.status_code, 400)
 
     def test_pagination(self):
         data1 = Result(cpu="TestCPU", gpu="TestGPU", log="TestLOG", score=11)
