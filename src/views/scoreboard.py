@@ -15,8 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
-from src.models import Result
-from src.models import db
+from src.models import Result, db
 from src.resources import utilities
 import math
 import flask
