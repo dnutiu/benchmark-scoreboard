@@ -15,11 +15,25 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
+from src.models import Result, db
 import src.resources.utilities as ut
+import src.application
 import unittest
+import os
 
 
 class UtilitiesTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.app = src.application.create_app('testing')
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        self.client = self.app.test_client(use_cookies=True)
+
+    def tearDown(self):
+        db.drop_all()
+        os.remove("src/test_database.sqlite")
+        self.app_context.pop()
 
     def test_to_zero_count(self):
         r = ut.to_zero_count(2)
@@ -45,3 +59,47 @@ class UtilitiesTestCase(unittest.TestCase):
         self.assertEqual(ut.get_env_variable("TESTING", "false"), 'false')
         os.environ['TESTING'] = 'True'
         self.assertEqual(ut.get_env_variable("TESTING", "false"), 'True')
+
+    def test_get_highest_score(self):
+        with self.assertRaises(LookupError):
+            ut.get_highest_score()
+
+        data1 = Result(cpu="TestCPU", gpu="TestGPU", log="TestLOG", score=11)
+
+        db.session.add(data1)
+        db.session.commit()
+
+        score = ut.get_highest_score()
+        self.assertEqual(score, 11)
+
+        data2 = Result(cpu="TestCPU", gpu="TestGPU", log="TestLOG", score=24)
+
+        db.session.add(data2)
+        db.session.commit()
+
+        score = ut.get_highest_score()
+        self.assertEqual(score, 24)
+
+    def test_get_progress_bar_score(self):
+        data1 = Result(score=100)
+
+        db.session.add(data1)
+        db.session.commit()
+
+        score = ut.get_progress_bar_score(50)
+        self.assertEqual(score, 50)
+
+    def test_get_progress_bar_class(self):
+        data1 = Result(score=100)
+
+        db.session.add(data1)
+        db.session.commit()
+
+        success = ut.get_progress_bar_class(80)
+        self.assertEqual("progress-bar-success", success)
+
+        warn = ut.get_progress_bar_class(49)
+        self.assertEqual("progress-bar-warning", warn)
+
+        danger = ut.get_progress_bar_class(24)
+        self.assertEqual("progress-bar-danger", danger)
