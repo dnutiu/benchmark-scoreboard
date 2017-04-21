@@ -19,9 +19,10 @@ from src.config import config
 from src.models import db
 from src.views.errors import error_pages
 from src.views.scoreboard import scoreboard
-from src.resources.utilities import cache, get_env_variable
+from src.resources.utilities import cache
 import flask_bootstrap
 import flask
+import os
 
 
 def create_app(config_name):
@@ -37,10 +38,9 @@ def create_app(config_name):
 
     return app
 
-configuration = get_env_variable("BSFLASK_ENV", fallback="default")
+configuration = os.environ.get("BSFLASK_ENV", "default")
 app = create_app(configuration)
 print("Running with", configuration, "configuration setting.")
-
 
 
 if __name__ == "__main__":

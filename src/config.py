@@ -17,7 +17,6 @@
 """
 import os
 from src.models import db
-from src.resources.utilities import get_env_variable
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -62,10 +61,10 @@ class ProductionConfig(Config):
     BOOTSTRAP_USE_MINIFIED = True
     DEBUG = False
     #  Database Configuration
-    MYSQL_USERNAME = get_env_variable("BSFLASK_MYSQL_USERNAME", fallback=None)
-    MYSQL_PASSWORD = get_env_variable("BSFLASK_MYSQL_PASSWORD", fallback=None)
-    MYSQL_HOSTNAME = get_env_variable("BSFLASK_MYSQL_HOSTNAME", fallback=None)
-    MYSQL_DATABASE = get_env_variable("BSFLASK_MYSQL_DATABASE", fallback=None)
+    MYSQL_USERNAME = os.environ.get("BSFLASK_MYSQL_USERNAME", None)
+    MYSQL_PASSWORD = os.environ.get("BSFLASK_MYSQL_PASSWORD", None)
+    MYSQL_HOSTNAME = os.environ.get("BSFLASK_MYSQL_HOSTNAME", None)
+    MYSQL_DATABASE = os.environ.get("BSFLASK_MYSQL_DATABASE", None)
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{username}:{password}@{hostname}/{database}'\
         .format(username=MYSQL_USERNAME, password=MYSQL_PASSWORD,
                 hostname=MYSQL_HOSTNAME, database=MYSQL_DATABASE)
