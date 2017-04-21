@@ -90,7 +90,11 @@ def get_highest_score():
     """
     result = Result.query.order_by(Result.score.desc()).first()
     if result:
-        return result.score
+        # If we return zero then we're going to have a problem
+        if result.score > 0:
+            return result.score
+        else:
+            return 1
     else:
         raise LookupError("The database is empty.")
 
