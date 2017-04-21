@@ -77,8 +77,7 @@ class ProductionConfig(Config):
 
 class TestingConfig(Config):
     MAX_RESULTS_PER_PAGE = 1
-    CACHE_TYPE = "filesystem"
-    CACHE_DIR = "/tmp"
+    CACHE_TYPE = "null"
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test_database.sqlite')
 
     @staticmethod
