@@ -51,4 +51,4 @@ except (IndexError, KeyError):
 
 
 if __name__ == "__main__":
-    app.run(app.config["APP_IP"], app.config["APP_PORT"])
+    app.run(app.config["BIND_IP"], app.config["BIND_PORT"])

@@ -14,27 +14,15 @@
 
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
+    
+    This the configuration file for the GUnicorn server.
 """
-from setuptools import setup, find_packages
+from src.config import ProductionConfig
+import multiprocessing
 
-long_description = open("README.md").read()
-
-setup(
-    name="scoreboard-benchmark",
-    version="2.0",
-    packages=find_packages(),
-    long_description=long_description,
-    install_requires=[
-        'flask',
-        'flask-bootstrap',
-        'flask-sqlalchemy',
-        'pymysql',
-        "gunicorn"
-    ],
-    author="Denis Nutiu",
-    author_email="denis.nutiu@gmail.com",
-    description="This is a simple web applications that displays scores",
-    license="GPLv3",
-    keywords="flask benchmark scores ",
-    url="N/a",
-)
+bind = "{ip}:{port}".format(ip=ProductionConfig.BIND_IP, port=ProductionConfig.BIND_PORT)
+workers = multiprocessing.cpu_count() * 2 + 1
+reload = False
+#daemon = True
+#user = "denis"
+#group = "www-data"
