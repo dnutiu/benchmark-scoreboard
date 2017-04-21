@@ -17,12 +17,24 @@
     
     This the configuration file for the GUnicorn server.
 """
-from src.config import ProductionConfig
 import multiprocessing
+import os
 
-bind = "{ip}:{port}".format(ip=ProductionConfig.BIND_IP, port=ProductionConfig.BIND_PORT)
+# If BSFLASK_ENV is development or environment then gunicorn will bind to Config.APP_IP and Config.APP_PORT
+# else it will create a unix socket benchmark_scoreboard.sock that may be used by Nginx
+configuration = None
+try:
+    configuration = os.environ['BSFLASK_ENV']
+except KeyError:
+    print("Environment key BSFLASK_ENV not defined.")
+
+if configuration is not None and configuration != 'production':
+    from src.config import Config
+    bind = "{ip}:{port}".format(ip=Config.BIND_IP, port=Config.BIND_PORT)
+else:
+    bind = "unix:benchmark_scoreboard.sock"
+
 workers = multiprocessing.cpu_count() * 2 + 1
 reload = False
-#daemon = True
-#user = "denis"
-#group = "www-data"
+# Allow access to name and group.
+umask = 0x007

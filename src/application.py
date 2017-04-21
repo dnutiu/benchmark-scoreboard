@@ -24,7 +24,7 @@ from src.models import db
 from src.views.errors import error_pages
 from src.views.scoreboard import scoreboard
 from src.resources.utilities import cache
-import sys
+import os
 import flask_bootstrap
 import flask
 
@@ -43,8 +43,9 @@ def create_app(config_name):
     return app
 
 try:
-    print("Running with configuration: " + sys.argv[1])
-    app = create_app(sys.argv[1])
+    configuration = os.environ['BSFLASK_ENV']
+    print("Running with configuration: " + configuration)
+    app = create_app(configuration)
 except (IndexError, KeyError):
     print("Using default configuration.")
     app = create_app('default')

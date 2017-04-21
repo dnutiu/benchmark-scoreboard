@@ -25,7 +25,7 @@ pip install -r requirements.txt
 python setup.py install
 python application.py
 ```
-
+You may set BSFLASK_ENV environment variable to production, development or testing.
 ### Running Tests
 
 In the root directory, run the following command:
