@@ -21,7 +21,7 @@ long_description = open("README.md").read()
 
 setup(
     name="scoreboard-benchmark",
-    version="2.0",
+    version="2.5",
     packages=find_packages(),
     long_description=long_description,
     install_requires=[
