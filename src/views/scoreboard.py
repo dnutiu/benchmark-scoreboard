@@ -81,7 +81,10 @@ def result(id):
     """
     entry_name = Result.query.filter_by(id=id).first()
     if entry_name:
-        return flask.render_template("result.html", name=entry_name)
+        progress_bar_data = dict()
+        progress_bar_data['value'] = utilities.get_progress_bar_score(entry_name.score)
+        progress_bar_data['class'] = utilities.get_progress_bar_class(entry_name.score)
+        return flask.render_template("result.html", name=entry_name, progress_bar=progress_bar_data)
     else:
         flask.abort(404)
 

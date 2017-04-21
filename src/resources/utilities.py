@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
-
+from src.models import Result
 from flask_cache import Cache
 import os
 
@@ -75,3 +75,54 @@ def get_env_variable(variable, fallback):
         return os.environ[variable]
     except KeyError:
         return fallback
+
+
+@cache.memoize(60*5)
+def get_highest_score():
+    """
+    Will retrieve the result that has the highest score from the database.
+    
+    Returns:
+        The score of the highest rated result else it raises an exception.
+    
+    Raises:
+        LookupError if the database is empty.
+    """
+    result = Result.query.order_by(Result.score.desc()).first()
+    if result:
+        return result.score
+    else:
+        raise LookupError("The database is empty.")
+
+
+@cache.memoize(60*5)
+def get_progress_bar_score(current):
+    """
+    Will compute the procent of the highest score compared to the current score.
+    
+    Args:
+        current - The result with the current score.
+    
+    Returns:
+        The computed score, if it's greater than %100 then returns 100.
+    """
+    highest = get_highest_score()
+    score = (current * 100) / highest
+    if score > 100:
+        return 100.0
+    else:
+        return score
+
+
+@cache.memoize(60*5)
+def get_progress_bar_class(score):
+    """
+    Returns the Boostrap class for the progress-bar based on the score.
+    """
+    highest = get_highest_score()
+    if score > highest / 2:
+        return 'progress-bar-success'
+    elif score > highest / 4:
+        return 'progress-bar-warning'
+    else:
+        return 'progress-bar-danger'
