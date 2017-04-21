@@ -2,7 +2,9 @@
 
 ![Travis CI](https://travis-ci.com/Metonimie/benchmark-scoreboard.svg?token=A1YGCrBhxwT3nHmAHZ9Q&branch=master)
 
-This is a simple web app used for an university projects.
+This is a simple web app that I've build for an university projects.
+It is supposed to retrieve and store results from outside and present them in a nice way.
+The results are benchmarking tests that are run by the java application.
 
 You will need **Python 2.6+ or Python 3.3+**  to run this app.
 Flask doesn't support Python 3.2.
