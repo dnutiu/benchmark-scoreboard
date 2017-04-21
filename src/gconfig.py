@@ -28,11 +28,11 @@ try:
 except KeyError:
     print("Environment key BSFLASK_ENV not defined.")
 
-if configuration is not None and configuration != 'production':
+if configuration is not None and configuration == 'production':
+    bind = "unix:benchmark_scoreboard.sock"
+else:
     from src.config import Config
     bind = "{ip}:{port}".format(ip=Config.BIND_IP, port=Config.BIND_PORT)
-else:
-    bind = "unix:benchmark_scoreboard.sock"
 
 workers = multiprocessing.cpu_count() * 2 + 1
 reload = False
