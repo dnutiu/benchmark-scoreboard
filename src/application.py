@@ -15,16 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
-try:  # This is mainly required for Travis CI automated testing.
-    from src.config import config
-except ImportError:
-    from src.config_lock import config
-
+from src.config import config
 from src.models import db
 from src.views.errors import error_pages
 from src.views.scoreboard import scoreboard
-from src.resources.utilities import cache
-import os
+from src.resources.utilities import cache, get_env_variable
 import flask_bootstrap
 import flask
 
@@ -42,13 +37,10 @@ def create_app(config_name):
 
     return app
 
-try:
-    configuration = os.environ['BSFLASK_ENV']
-    print("Running with configuration: " + configuration)
-    app = create_app(configuration)
-except (IndexError, KeyError):
-    print("Using default configuration.")
-    app = create_app('default')
+configuration = get_env_variable("BSFLASK_ENV", fallback="default")
+app = create_app(configuration)
+print("Running with", configuration, "configuration setting.")
+
 
 
 if __name__ == "__main__":

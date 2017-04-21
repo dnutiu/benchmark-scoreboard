@@ -17,6 +17,7 @@
 """
 
 from flask_cache import Cache
+import os
 
 cache = Cache()
 
@@ -46,3 +47,31 @@ def to_zero_count(page_no):
     except (TypeError, ValueError):  # page_no is not an int
         page_no = 0
     return page_no
+
+
+def get_env_variable(variable, fallback):
+    """
+    Will try to retrieve the environment variable from the system and if it fails
+    it returns the fallback value.
+    
+    Args:
+        variable: The environment variable that should be retrieved
+        fallback: The default return value in case the environment variable is not retrieved
+    
+    Returns:
+        On success is returns the variable's value from the environment, on failure it returns the
+        value provided by fallback
+    
+    >>> get_env_variable('HOMES', 'fallback')
+    'fallback'
+    
+    >>> import os
+    >>> os.environ['TEST'] = '13'
+    >>> get_env_variable("TEST", "14")
+    '13'
+    
+    """
+    try:
+        return os.environ[variable]
+    except KeyError:
+        return fallback
