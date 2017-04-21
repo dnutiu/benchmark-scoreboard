@@ -30,11 +30,10 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     DEBUG = True
     # Server Settings
-    SERVER_NAME = "localhost:5000"
     ADMIN_EMAIL = "metonymy@fedoraproject.com"
     ADMIN_NAME = "Metonymy"
-    APP_IP = "localhost"
-    APP_PORT = 5000
+    BIND_IP = "0.0.0.0"
+    BIND_PORT = 5000
     CACHE_TYPE = "memcached"
     CACHE_DEFAULT_TIMEOUT = 60
     CACHE_KEY_PREFIX = "benchmark_scoreboard"
@@ -49,7 +48,8 @@ class Config:
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.sqlite')
-    CACHE_TYPE = "simple"
+    CACHE_TYPE = "filesystem"
+    CACHE_DIR = "/tmp"
 
     @staticmethod
     def init_app(app):
@@ -77,7 +77,8 @@ class ProductionConfig(Config):
 
 class TestingConfig(Config):
     MAX_RESULTS_PER_PAGE = 1
-    CACHE_TYPE = "simple"
+    CACHE_TYPE = "filesystem"
+    CACHE_DIR = "/tmp"
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'test_database.sqlite')
 
     @staticmethod
@@ -90,5 +91,5 @@ config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,
     'testing': TestingConfig,
-    'default': DevelopmentConfig
+    'default': ProductionConfig
 }
