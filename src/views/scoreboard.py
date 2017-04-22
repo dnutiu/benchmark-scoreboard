@@ -54,10 +54,12 @@ def result_post():
         cpu = content['cpu']
         log = content['log']
         score = int(content['score'])
+        if score <= 0:
+            error = "Score must be positive!"
     except KeyError:  # Json doesn't contain the keys we need.
-        error = "invalid json keys: gpu, cpu, log, score name"
+        error = "Invalid json keys: gpu, cpu, log, score name!"
     except TypeError:  # The types from the json object are not correct.
-        error = "invalid json object"
+        error = "Invalid json object!"
 
     if error:
         return flask.jsonify({'error': error, 'success': False}), 400
@@ -69,7 +71,7 @@ def result_post():
 
     location = "/result/{}".format(entry.id)
 
-    return flask.jsonify({'success': True, 'location': location}), 201, {'location': location}
+    return flask.jsonify({'success': True}), 201, {'location': location}
 
 
 @utilities.cache.cached(timeout=60*5)

@@ -32,7 +32,7 @@ class Result(db.Model):
     log = db.Column(db.String(10000))
     score = db.Column(db.Integer)
 
-    def __init__(self, name="Anonymous", gpu=None, cpu=None, log=None, score=0):
+    def __init__(self, name="Anonymous", gpu=None, cpu=None, log=None, score=1):
         self.name = name
         self.gpu = gpu
         self.cpu = cpu
@@ -41,3 +41,8 @@ class Result(db.Model):
 
     def __repr__(self):
         return self.gpu
+
+    __table_args__ = (
+        db.CheckConstraint(score > 0, name="positive_score_constraint"),
+        {}
+    )
