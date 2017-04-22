@@ -31,12 +31,13 @@ def upload():
     """
     return flask.render_template('upload.html')
 
-# @scoreboard.route("/result", methods=['GET'])
-# def result_get():
-#     """
-#     Instead of method not allowed we redirect to scoreboard.upload
-#     """
-#     return flask.redirect(flask.url_for('scoreboard.upload'))
+
+@scoreboard.route("/result", methods=['GET'])
+def result_get():
+    """
+    Instead of method not allowed we redirect to scoreboard.upload
+    """
+    return flask.redirect(flask.url_for('scoreboard.upload'))
 
 
 @scoreboard.route("/result", methods=['POST'])
@@ -68,6 +69,8 @@ def result_post():
     entry = Result(name=name, gpu=gpu, cpu=cpu, log=log, score=score)
     db.session.add(entry)
     db.session.commit()
+
+    flask.current_app.logger.info("{} added result with id: {}.".format(flask.request.remote_addr, entry.id))
 
     location = "/result/{}".format(entry.id)
 

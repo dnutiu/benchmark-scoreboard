@@ -19,22 +19,40 @@ import flask
 
 error_pages = flask.Blueprint('error_pages', __name__, template_folder='templates')
 
+report_string = "===============\n" \
+                "{headers}" \
+                "Path: {path}\n" \
+                "Ip: {ip}\n" \
+                "Message: {message}\n"
+
 
 @error_pages.app_errorhandler(404)
 def page_not_found_error(e):
+    error = report_string.format(headers=flask.request.headers, ip=flask.request.remote_addr,
+                                 message=e, path=flask.request.path)
+    flask.current_app.logger.info(error)
     return flask.render_template("404.html"), 404
 
 
 @error_pages.app_errorhandler(500)
 def internal_server_error(e):
+    error = report_string.format(headers=flask.request.headers, ip=flask.request.remote_addr,
+                                 message=e, path=flask.request.path)
+    flask.current_app.logger.error(error)
     return flask.render_template("500.html"), 500
 
 
 @error_pages.app_errorhandler(405)
 def method_not_allowed_error(e):
+    error = report_string.format(headers=flask.request.headers, ip=flask.request.remote_addr,
+                                 message=e, path=flask.request.path)
+    flask.current_app.logger.warning(error)
     return flask.render_template("405.html"), 405
 
 
 @error_pages.app_errorhandler(400)
 def bad_request_error(e):
+    error = report_string.format(headers=flask.request.headers, ip=flask.request.remote_addr,
+                                 message=e, path=flask.request.path)
+    flask.current_app.logger.info(error)
     return flask.render_template("400.html"), 400

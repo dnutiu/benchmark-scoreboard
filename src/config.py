@@ -16,6 +16,8 @@
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
 import os
+import logging
+from logging.handlers import SysLogHandler
 from src.models import db
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -41,9 +43,13 @@ class Config:
     MAX_RESULTS_PER_PAGE = 50
     MAX_PAGES = 2
 
+    # Unix logging settings
+    syslog_handler = SysLogHandler()
+    syslog_handler.setLevel(logging.WARNING)
+
     @staticmethod
     def init_app(app):
-        pass
+        app.logger.addHandler(Config.syslog_handler)
 
 
 class DevelopmentConfig(Config):
@@ -53,6 +59,7 @@ class DevelopmentConfig(Config):
 
     @staticmethod
     def init_app(app):
+        app.logger.addHandler(Config.syslog_handler)
         with app.app_context():
             db.create_all()
 
@@ -71,6 +78,7 @@ class ProductionConfig(Config):
 
     @staticmethod
     def init_app(app):
+        app.logger.addHandler(Config.syslog_handler)
         with app.app_context():
             db.create_all()
 
@@ -82,6 +90,7 @@ class TestingConfig(Config):
 
     @staticmethod
     def init_app(app):
+        app.logger.addHandler(Config.syslog_handler)
         with app.app_context():
             db.drop_all()
             db.create_all()
