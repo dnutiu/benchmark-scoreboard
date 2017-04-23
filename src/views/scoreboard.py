@@ -45,36 +45,35 @@ def result_post():
     """
     Allows the upload of resources via POST.
     """
-    content = flask.request.get_json()
-    error = None
-    gpu = cpu = log = score = name = None
-
     try:
+        content = flask.request.get_json()
+
         name = content['name']
         gpu = content['gpu']
         cpu = content['cpu']
         log = content['log']
         score = int(content['score'])
         if score <= 0:
-            error = "Score must be positive!"
-    except KeyError:  # Json doesn't contain the keys we need.
-        error = "Invalid json keys: gpu, cpu, log, score name!"
-    except TypeError:  # The types from the json object are not correct.
-        error = "Invalid json object!"
+            raise ValueError("Score must be positive!")
+    except KeyError as e:  # Json doesn't contain the keys we need.
+        error = "Key not found: {}.".format(str(e))
+    except TypeError as e:  # If we don't get a string
+        error = str(e)
+    except ValueError as e:
+        error = str(e)
+    else:
+        # Add data to the database
+        entry = Result(name=name, gpu=gpu, cpu=cpu, log=log, score=score)
+        db.session.add(entry)
+        db.session.commit()
 
-    if error:
-        return flask.jsonify({'error': error, 'success': False}), 400
+        flask.current_app.logger.info("{} added result with id: {}.".format(flask.request.remote_addr, entry.id))
 
-    # Add data to the database
-    entry = Result(name=name, gpu=gpu, cpu=cpu, log=log, score=score)
-    db.session.add(entry)
-    db.session.commit()
+        location = "/result/{}".format(entry.id)
 
-    flask.current_app.logger.info("{} added result with id: {}.".format(flask.request.remote_addr, entry.id))
-
-    location = "/result/{}".format(entry.id)
-
-    return flask.jsonify({'success': True}), 201, {'location': location}
+        return flask.jsonify({'success': True}), 201, {'location': location}
+    # Exception occurred
+    return flask.jsonify({'error': error, 'success': False}), 400
 
 
 @utilities.cache.cached(timeout=60*5)
