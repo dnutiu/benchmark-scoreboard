@@ -29,7 +29,7 @@ class Result(db.Model):
     name = db.Column(db.String(50))
     gpu = db.Column(db.String(256))
     cpu = db.Column(db.String(256))
-    log = db.Column(db.String(10000))
+    log = db.Column(db.Text(10000))
     score = db.Column(db.Integer)
 
     def __init__(self, name="Anonymous", gpu=None, cpu=None, log=None, score=1):
