@@ -1,4 +1,5 @@
 {% extends "bootstrap/base.html" %}
+
 {% block title %}FOTB{% endblock %}
 {% block metas %}
 <meta charset="UTF-8">
@@ -10,6 +11,7 @@
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dataTables.bootstrap.min.css')}}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 {% endblock %}
 
@@ -57,6 +59,12 @@
     <div class="container">
         <span class="text-muted">Copyright © 2017 Fellowship of the Bits</span>
     </div>
+
 </footer>
 <!-- ♥ Astrid-->
+{% endblock %}
+{% block scripts %}
+    {{super()}}
+    <script src="{{url_for('static', filename='jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='dataTables.bootstrap.min.js')}}"></script>
 {% endblock %}

@@ -6,11 +6,8 @@
     <!-- Default panel contents -->
     <div class="panel-heading"><span class="glyphicon glyphicon-globe"></span> Scoreboard</div>
     <div class="panel-body">
-        <p>The results are send here via JSON from the java app, there are currently {{ pagination[0] }} results in the database.</p>
-    </div>
-
-  <!-- Table -->
-    <table class="table">
+        <p>The results are send here via JSON from the java app.</p>
+    <table class="table" id="result-table">
         <thead>
             <tr>
                 <th>GPU</th>
@@ -30,52 +27,15 @@
             {% endfor %}
         </tbody>
     </table>
-
-    {# [0] -> Results Lenght, [1] -> Max Items Per Page, [2] -> Current Page, [3] -> Pages Left, [4] -> Pages Right #}
-    {% if pagination[0] > pagination[1] %}
-    <nav aria-label="Page navigation">
-        <div class="text-center">
-            <ul class="pagination">
-                {% if pagination[2] <= 1 %}
-                <li class="disabled">
-                    <span aria-hidden="true">&laquo;</span>
-                {% else %}
-                <li>
-                    <a href="{{ url_for('scoreboard.index', page=pagination[2] - 1,
-                             result_name=request.args.get('result_name')) }}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                {% endif %}
-                {# Things are kinda messy here #}
-                {% for i in range(pagination[2] - pagination[3], pagination[2]) %}
-                    <li><a href="{{ url_for('scoreboard.index', page=i,
-                                 result_name=request.args.get('result_name')) }}">{{ i }}</a></li>
-                {% endfor %}
-                <li class="active"><a href="{{ url_for('scoreboard.index', page=pagination[2],
-                                            result_name=request.args.get('result_name')) }}">{{ pagination[2] }}</a></li>
-                {% for i in range(pagination[2], pagination[2] + pagination[4]) %}
-                    <li><a href="{{ url_for('scoreboard.index', page=i + 1,
-                                 result_name=request.args.get('result_name')) }}">{{ i + 1 }}</a></li>
-                {% endfor %}
-                {% if pagination[4] <= 0 %}
-                <li class="disabled">
-                        <span aria-hidden="true">&raquo;</span>
-                {% else %}
-                <li>
-                    <a href="{{ url_for('scoreboard.index', page=pagination[2] + 1,
-                             result_name=request.args.get('result_name')) }}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                {% endif %}
-                </li>
-            </ul>
-        </div>
-    </nav>
-    {% elif pagination[0] == 0 %}
-    <div class="text-center">
-        <h2>No results found :(</h2>
     </div>
-    {% endif %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+    {{super()}}
+    <script>
+        $(document).ready(function(){
+            $('#result-table').DataTable();
+        });
+    </script>
 {% endblock %}
