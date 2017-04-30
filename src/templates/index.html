@@ -37,7 +37,8 @@
     {{super()}}
     <script>
         $(document).ready(function(){
-            $('#result-table').DataTable();
+            $table = $('#result-table').DataTable();
+            $table.column('3:visible').order('desc').draw();
         });
     </script>
 {% endblock %}
