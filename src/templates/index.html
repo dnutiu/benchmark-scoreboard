@@ -10,7 +10,7 @@
     <table class="table" id="result-table">
         <thead>
             <tr>
-                <th>Username</th>
+                <th class="hidden-xs">Username</th>
                 <th>GPU</th>
                 <th>CPU</th>
                 <th>Score</th>
@@ -20,9 +20,9 @@
         <tbody>
             {% for item in results %}
             <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.gpu }}</td>
-                <td>{{ item.cpu }}</td>
+                <td class="hidden-xs">{{ item.name | truncate(30, True) }}</td>
+                <td>{{ item.gpu | truncate(50) }}</td>
+                <td>{{ item.cpu | truncate(50)}}</td>
                 <td>{{ item.score }}</td>
                 <td><a href="{{ url_for('scoreboard.result', id=item.id) }}">See more</a></td>
             </tr>
