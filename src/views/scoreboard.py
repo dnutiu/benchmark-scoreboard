@@ -52,8 +52,14 @@ def result_post():
         cpu = content['cpu']
         log = content['log']
         score = int(content['score'])
+
+        # Extra validators
         if score <= 0:
             raise ValueError("Score must be positive!")
+        if any(c.isspace() for c in name):
+            raise ValueError("Name can't contain spaces!")
+        if not name.isalnum():
+            raise ValueError("Name must contain only letters and numbers!")
     except KeyError as e:  # Json doesn't contain the keys we need.
         error = "Key not found: {}.".format(str(e))
     except TypeError as e:  # If we don't get a string
@@ -71,6 +77,7 @@ def result_post():
         location = "/result/{}".format(entry.id)
 
         return flask.jsonify({'success': True}), 201, {'location': location}
+
     # Exception occurred
     return flask.jsonify({'error': error, 'success': False}), 400
 
