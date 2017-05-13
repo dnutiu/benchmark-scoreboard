@@ -32,7 +32,7 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     DEBUG = True
     # Server Settings
-    ADMIN_EMAIL = "metonymy@fedoraproject.com"
+    ADMIN_EMAIL = "metonymy@fedoraproject.org"
     ADMIN_NAME = "Metonymy"
     BIND_IP = "0.0.0.0"
     BIND_PORT = 5000
