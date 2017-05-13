@@ -1,43 +1,49 @@
 {% extends "root.html" %}
 
 {% block main %}
-{{ super() }}
-<div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading"><span class="glyphicon glyphicon-globe"></span> Scoreboard</div>
-    <div class="panel-body">
-        <p>The results are send here via JSON from the java app.</p>
-    <table class="table" id="result-table">
-        <thead>
-            <tr>
-                <th class="hidden-xs">Username</th>
-                <th>GPU</th>
-                <th>CPU</th>
-                <th>Score</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in results %}
-            <tr>
-                <td class="hidden-xs">{{ item.name | truncate(30, True) }}</td>
-                <td>{{ item.gpu | truncate(50) }}</td>
-                <td>{{ item.cpu | truncate(50)}}</td>
-                <td>{{ item.score }}</td>
-                <td><a href="{{ url_for('scoreboard.result', id=item.id) }}">See more</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {{ super() }}
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="glyphicon glyphicon-globe"></span> Scoreboard</div>
+        <div class="panel-body">
+            <p>The results are send here via JSON from the java app.</p>
+            <table class="table" id="result-table">
+                <thead>
+                <tr>
+                    <th class="hidden-xs">Username</th>
+                    <th>GPU</th>
+                    <th>CPU</th>
+                    <th>Score</th>
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in results %}
+                    <tr>
+                        <td class="hidden-xs">{{ item.name | truncate(30, True) }}</td>
+                        <td>{{ item.gpu | truncate(50) }}</td>
+                        <td>{{ item.cpu | truncate(50) }}</td>
+                        <td>{{ item.score }}</td>
+                        <td><a href="{{ url_for('scoreboard.result', id=item.id) }}">See more</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 {% endblock %}
 
 {% block scripts %}
-    {{super()}}
+    {{ super() }}
     <script>
-        $(document).ready(function(){
-            $table = $('#result-table').DataTable();
+        $(document).ready(function () {
+            $table = $('#result-table').DataTable({
+                    "columnDefs": [
+                        {# Dissable search for the Details column. #}
+                        {"searchable": false, "targets": 4}
+                    ]
+                }
+            );
             $table.column('3:visible').order('desc').draw();
         });
     </script>
