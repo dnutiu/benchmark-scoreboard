@@ -24,7 +24,7 @@
                         <td>{{ item.gpu | truncate(50) }}</td>
                         <td>{{ item.cpu | truncate(50) }}</td>
                         <td>{{ item.score }}</td>
-                        <td><a href="{{ url_for('scoreboard.result', id=item.id) }}">See more</a></td>
+                        <td><a href="{{ url_for('scoreboard.result', id=item.id) }}" target="_blank">See more</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
