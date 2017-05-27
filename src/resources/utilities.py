@@ -63,7 +63,7 @@ def get_env_variable(variable, fallback):
 
     >>> get_env_variable('HOMES', 'fallback')
     'fallback'
-    
+
     >>> import os
     >>> os.environ['TEST'] = '13'
     >>> get_env_variable("TEST", "14")
