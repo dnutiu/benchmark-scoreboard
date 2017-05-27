@@ -52,7 +52,7 @@ def get_env_variable(variable, fallback):
     """
     Will try to retrieve the environment variable from the system and if it fails
     it returns the fallback value.
-    
+
     Args:
         variable: The environment variable that should be retrieved
         fallback: The default return value in case the environment variable is not retrieved

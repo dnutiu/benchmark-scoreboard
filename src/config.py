@@ -17,6 +17,7 @@
 """
 import os
 import logging
+import tempfile
 from logging.handlers import SysLogHandler
 from src.models import db
 
@@ -34,7 +35,7 @@ class Config:
     # Server Settings
     ADMIN_EMAIL = "metonymy@fedoraproject.org"
     ADMIN_NAME = "Metonymy"
-    BIND_IP = "0.0.0.0"
+    BIND_IP = ""
     BIND_PORT = 5000
     CACHE_TYPE = "memcached"
     CACHE_DEFAULT_TIMEOUT = 60
@@ -55,7 +56,7 @@ class Config:
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'database.sqlite')
     CACHE_TYPE = "filesystem"
-    CACHE_DIR = "/tmp"
+    CACHE_DIR = tempfile.gettempdir()
 
     @staticmethod
     def init_app(app):
