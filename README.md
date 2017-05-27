@@ -1,5 +1,7 @@
 # scoreboard-benchmark 
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5898b8005f634dc48c611a3c3337d30e)](https://www.codacy.com/app/Metonimie/benchmark-scoreboard?utm_source=github.com&utm_medium=referral&utm_content=Metonimie/benchmark-scoreboard&utm_campaign=badger)
+
 ![Travis CI](https://travis-ci.com/Metonimie/benchmark-scoreboard.svg?token=A1YGCrBhxwT3nHmAHZ9Q&branch=master)
 
 This is a simple web app that I've build for an university projects.
