@@ -56,7 +56,7 @@ def get_env_variable(variable, fallback):
     Args:
         variable: The environment variable that should be retrieved
         fallback: The default return value in case the environment variable is not retrieved
-    
+
     Returns:
         On success is returns the variable's value from the environment, on failure it returns the
         value provided by fallback
