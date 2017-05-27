@@ -26,7 +26,6 @@ def to_zero_count(page_no):
     """
     Will subtract 1 from the argument it gets, converting it to an int.
     If the conversion fails or the argument it's negatives it returns zero instead.
-    
     >>> to_zero_count(3)
     2
     >>> to_zero_count('a')
@@ -61,7 +60,7 @@ def get_env_variable(variable, fallback):
     Returns:
         On success is returns the variable's value from the environment, on failure it returns the
         value provided by fallback
-    
+
     >>> get_env_variable('HOMES', 'fallback')
     'fallback'
     

@@ -83,13 +83,13 @@ def result_post():
 
 
 @utilities.cache.cached(timeout=60*5)
-@scoreboard.route("/result/<id>", methods=['GET'])
-def result(id):
+@scoreboard.route("/result/<rid>", methods=['GET'])
+def result(rid):
     """
     Fetches an entry from the database and displays it in a view.
     The entry is retrieved from the database and the ID is a primary key for the entry.
     """
-    entry_name = Result.query.filter_by(id=id).first()
+    entry_name = Result.query.filter_by(id=rid).first()
     if entry_name:
         progress_bar_data = dict()
         progress_bar_data['value'] = utilities.get_progress_bar_score(entry_name.score)

@@ -55,7 +55,6 @@ class UtilitiesTestCase(unittest.TestCase):
         self.assertEqual(9, r)
 
     def test_get_environment_variable(self):
-        import os
         self.assertEqual(ut.get_env_variable("TESTING", "false"), 'false')
         os.environ['TESTING'] = 'True'
         self.assertEqual(ut.get_env_variable("TESTING", "false"), 'True')
