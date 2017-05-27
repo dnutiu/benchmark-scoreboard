@@ -68,7 +68,7 @@ def get_env_variable(variable, fallback):
     >>> os.environ['TEST'] = '13'
     >>> get_env_variable("TEST", "14")
     '13'
-    
+
     """
     try:
         return os.environ[variable]
@@ -80,10 +80,10 @@ def get_env_variable(variable, fallback):
 def get_highest_score():
     """
     Will retrieve the result that has the highest score from the database.
-    
+
     Returns:
         The score of the highest rated result else it raises an exception.
-    
+
     Raises:
         LookupError if the database is empty.
     """
@@ -102,10 +102,10 @@ def get_highest_score():
 def get_progress_bar_score(current):
     """
     Will compute the procent of the highest score compared to the current score.
-    
+
     Args:
         current - The result with the current score.
-    
+
     Returns:
         The computed score, if it's greater than %100 then returns 100.
     """
