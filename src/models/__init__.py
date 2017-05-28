@@ -16,6 +16,7 @@
     along with scoreboard-benchmark .  If not, see <http://www.gnu.org/licenses/>.
 """
 from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy_utils
 
 db = SQLAlchemy()
 
@@ -25,19 +26,21 @@ class Result(db.Model):
         The result model will store benchmark results.
     """
     __tablename__ = 'results'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(50))
     gpu = db.Column(db.String(256))
     cpu = db.Column(db.String(256))
     log = db.Column(db.Text)
-    score = db.Column(db.Integer)
+    score = db.Column(db.Integer, index=True)
+    ip = db.Column(sqlalchemy_utils.IPAddressType)
 
-    def __init__(self, name="Anonymous", gpu=None, cpu=None, log=None, score=1):
+    def __init__(self, name="Anonymous", gpu=None, cpu=None, log=None, ip=None, score=1):
         self.name = name
         self.gpu = gpu
         self.cpu = cpu
         self.log = log
         self.score = score
+        self.ip = ip
 
     def __repr__(self):
         return self.gpu
