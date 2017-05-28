@@ -33,6 +33,7 @@ class Result(db.Model):
     log = db.Column(db.Text)
     score = db.Column(db.Integer, index=True)
     ip = db.Column(sqlalchemy_utils.IPAddressType)
+    created = db.Column(db.DateTime(timezone=True), server_default=db.func.now())  # Update time created server time.
 
     def __init__(self, name="Anonymous", gpu=None, cpu=None, log=None, ip=None, score=1):
         self.name = name
