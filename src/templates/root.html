@@ -2,69 +2,70 @@
 
 {% block title %}FOTB{% endblock %}
 {% block metas %}
-<meta charset="UTF-8">
-<meta name="author" content="Metonymy">
-<meta name="description" content="The scoreboard for the benchmarks!">
-<meta name="keywords" content="flask python metonymyqt benchmark scoreboard">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="author" content="Metonymy">
+    <meta name="description" content="The scoreboard for the benchmarks!">
+    <meta name="keywords" content="flask python metonymyqt benchmark scoreboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% endblock %}
 {% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='dataTables.bootstrap.min.css')}}">
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dataTables.bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 {% endblock %}
 
 {% block content %}
 
-<div class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle"
-            data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        <a class="navbar-brand" href="/">FOTB</a> </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="{{ url_for("scoreboard.upload") }}">Upload</a></li>
-                <li><a href="//github.com/Metonimie/benchmark-scoreboard">Fork this Website</a></li>
-            </ul>
-            <form method="get" action="{{ url_for('scoreboard.index') }}" class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="result_name" placeholder="Search for username">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">FOTB</a></div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for("scoreboard.upload") }}">Upload</a></li>
+                    <li><a href="//github.com/Metonimie/benchmark-scoreboard">Fork this Website</a></li>
+                </ul>
+                <form method="get" action="{{ url_for('scoreboard.index') }}" class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="result_name" placeholder="Search for username">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<header>
-    {% block header %}
-    {% endblock %}
-    <div class="alert alert-info" role="alert">
-        <strong><span class="glyphicon glyphicon-fire"></span> Heads up!</strong> This application is not complete! If you find any bugs please report them to:
-        <a href="mailto:{{ config.ADMIN_EMAIL }}" class="alert-link">{{ config.ADMIN_NAME }}</a>
+    <header>
+        {% block header %}
+        {% endblock %}
+        <div class="alert alert-info" role="alert">
+            <strong><span class="glyphicon glyphicon-fire"></span> Heads up!</strong> If you find any bugs please report
+            them to:
+            <a href="mailto:{{ config.ADMIN_EMAIL }}" class="alert-link">{{ config.ADMIN_NAME }}</a>
+        </div>
+    </header>
+    <div class="container" role="main">
+        {% block main %}
+        {% endblock %}
     </div>
-</header>
-<div class="container" role="main">
-    {% block main %}
-    {% endblock %}
-</div>
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">Copyright © 2017 Fellowship of the Bits</span>
-    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Copyright © 2017 Fellowship of the Bits</span>
+        </div>
 
-</footer>
-<!-- ♥ Astrid-->
+    </footer>
+    <!-- ♥ Astrid-->
 {% endblock %}
 {% block scripts %}
-    {{super()}}
-    <script src="{{url_for('static', filename='jquery.dataTables.min.js')}}"></script>
-    <script src="{{url_for('static', filename='dataTables.bootstrap.min.js')}}"></script>
+    {{ super() }}
+    <script src="{{ url_for('static', filename='jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dataTables.bootstrap.min.js') }}"></script>
 {% endblock %}

@@ -2,14 +2,21 @@
 {% block title %}FOTB - Uploading{% endblock %}
 
 {% block main %}
-{{ super() }}
-<div>
-    <h4>Uploading Data</h4>
-    <p>Uploading data is simple, all you need to do is send a POST request with content-type <code>application/json</code> to <code>/result</code>.</p>
-    <p>Your JSON must respect all the required fields, if not, you will get back a <code>400</code> :)</p>
-    <p>Example: <code>curl -H "Content-Type: application/json" -X POST -d '{"name":"Anonymous", "gpu":"GPU DUMMY TEXT","cpu":"CPU DUMMY TEXT","log":"So this will be a detailed log.","score": 1}' http://localhost:5000/result</code></p>
-    <p>If the resource has been added sucessfully then the status code of <code>201</code> is returned, any other status code can be considered an error</p>
-    <p>The <code>name</code> field can be used with the build in search functionality to search for results.</p>
-    <p>The <code>location</code> header can be inspected for an url to the newly created result.</p>
-</div>
+    {{ super() }}
+    <div>
+        <h4>Uploading Data</h4>
+        <p>Uploading data to the website is simple, all you need to do is send a POST request with content-type
+            <code>application/json</code> to <code>/result</code>.</p>
+        <p>Your JSON must respect all the required fields, if not, you will get back a <code>400</code> :)</p>
+        <p>Example with curl: <code>curl -H "Content-Type: application/json" -X POST -d '{"name":"Anonymous", "gpu":"GPU
+            DUMMY
+            TEXT","cpu":"CPU DUMMY TEXT","log":"So this will be a detailed log.","score": 1}'
+            http://localhost:5000/result</code></p>
+        <p>If the resource has been added successfully then the status code of <code>201</code> is returned, any other
+            status code can be considered an error. In case of error the response JSON will contain the error message.
+        </p>
+        <p>The <code>name</code> field can be used with the search functionality from the toolbar to search for results.
+        </p>
+        <p>The <code>location</code> header of the response contains the location of the submitted result.</p>
+    </div>
 {% endblock %}
