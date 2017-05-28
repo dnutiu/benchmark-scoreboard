@@ -8,8 +8,8 @@ This is a simple web app that I've build for an university projects.
 It is supposed to retrieve and store results from outside and present them in a nice way.
 The results are benchmarking tests that are run by the java application.
 
-You will need **Python 2.6+ or Python 3.3+**  to run this app.
-Flask doesn't support Python 3.2.
+You will need **Python 3.3+**  to run this app.
+Flask doesn't support Python 3.2 and some packages won't work with Python 2 but you may get it running with some tweaks.
 
 It should provide a simple score board display
 for some benchmarking data which is gathered from another application.
