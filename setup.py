@@ -21,7 +21,7 @@ long_description = open("README.md").read()
 
 setup(
     name="scoreboard-benchmark",
-    version="2.5",
+    version="2.6",
     packages=find_packages(),
     long_description=long_description,
     install_requires=[
@@ -35,6 +35,6 @@ setup(
     author_email="denis.nutiu@gmail.com",
     description="This is a simple web applications that displays scores",
     license="GPLv3",
-    keywords="flask benchmark scores ",
+    keywords="flask benchmark scores scoreboard",
     url="N/a",
 )
