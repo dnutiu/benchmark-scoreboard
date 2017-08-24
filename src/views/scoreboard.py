@@ -54,6 +54,9 @@ def result_post():
         score = int(content['score'])
         ip = flask.request.remote_addr
 
+        if ip == '':
+            ip = '0.0.0.0'
+
         # Extra validators
         if score <= 0:
             raise ValueError("Score must be positive!")
