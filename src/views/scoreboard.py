@@ -52,10 +52,7 @@ def result_post():
         cpu = content['cpu']
         log = content['log']
         score = int(content['score'])
-        ip = flask.request.remote_addr
-
-        if ip == '':
-            ip = '0.0.0.0'
+        ip = "0.0.0.0"
 
         # Extra validators
         if score <= 0:
